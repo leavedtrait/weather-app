@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "713be32fa86b6813e3886d11aaebfd9c",
+    "content-hash": "bd3811f2b2fa4d95146a3c29cd691533",
     "packages": [
         {
             "name": "brick/math",
@@ -3285,53 +3285,6 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
-        },
-        {
-            "name": "scrnr/weather",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/scrnr/OpenWeatherApi-PHP.git",
-                "reference": "0cb85fc50eb26f5584abc36c892c5abae74d721a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/scrnr/OpenWeatherApi-PHP/zipball/0cb85fc50eb26f5584abc36c892c5abae74d721a",
-                "reference": "0cb85fc50eb26f5584abc36c892c5abae74d721a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "ext-json": "*",
-                "php": ">=8.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Scrnr\\Weather\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Aleksei",
-                    "email": "scrnr@outlook.com"
-                }
-            ],
-            "description": "OpenWeatherApi application in PHP",
-            "homepage": "https://github.com/scrnr/OpenWeatherApi-PHP",
-            "keywords": [
-                "open-weather",
-                "weather"
-            ],
-            "support": {
-                "issues": "https://github.com/scrnr/OpenWeatherApi-PHP/issues",
-                "source": "https://github.com/scrnr/OpenWeatherApi-PHP/tree/v1.0.0"
-            },
-            "time": "2023-04-27T17:41:13+00:00"
         },
         {
             "name": "symfony/clock",
