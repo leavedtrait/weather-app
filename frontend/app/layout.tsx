@@ -40,8 +40,8 @@ export default function RootLayout({
       >
       <SidebarProvider>
       <AppSidebar />
-      <main className="p-2 w-screen">
-        <div className="w-full flex justify-between items-center space-x-6 ">
+      <main className="p-2 w-screen space-y-4">
+        <div className="py-2 w-full flex justify-between items-center space-x-6 ">
           <SidebarTrigger />
           <Header/>
         </div>
