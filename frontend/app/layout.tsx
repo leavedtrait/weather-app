@@ -4,6 +4,8 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
+import Header from "@/components/Header";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,8 +40,11 @@ export default function RootLayout({
       >
       <SidebarProvider>
       <AppSidebar />
-      <main>
-        <SidebarTrigger />
+      <main className="p-2 w-screen">
+        <div className="w-full flex justify-between items-center space-x-6 ">
+          <SidebarTrigger />
+          <Header/>
+        </div>
         {children}
       </main>
     </SidebarProvider>
