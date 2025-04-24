@@ -6,6 +6,7 @@ import { StatusCardProps, WeatherData as WeatherCardData } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useParams, useSearchParams } from 'next/navigation';
+import { WeatherStatusSection } from "@/components/WeatherStatusSection";
 
 interface LocalNames {
   zh?: string;
@@ -81,33 +82,9 @@ interface ProcessedWeatherData extends Omit<WeatherCardData, 'icon'> {
   iconUrl: string;
 }
 
-export function WeatherStatusSection({ humidity, windSpeed }: { humidity: number; windSpeed: number }) {
-  const status: StatusCardProps[] = [
-    {
-      title: "Humidity",
-      icon: <Droplets />,
-      value: `${humidity}%`,
-    },
-    {
-      title: "Wind",
-      icon: <Wind />,
-      value: `${windSpeed} km/h`,
-    },
-  ];
 
-  return (
-    <div className="w-full grid grid-cols-2 gap-2 items-center">
-      {status.map((item, index) => (
-        <StatusCard
-          key={index}
-          title={item.title}
-          icon={item.icon}
-          value={item.value}
-        />
-      ))}
-    </div>
-  );
-}
+
+
 
 export default function Home() {
   const [weatherData, setWeatherData] = useState<ProcessedWeatherData[]>([]);

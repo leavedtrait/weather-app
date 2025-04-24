@@ -5,6 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ThemeProvider } from "@/components/theme-provider"
 import Header from "@/components/Header";
+import { Suspense } from "react";
 
 
 const geistSans = Geist({
@@ -39,7 +40,8 @@ export default function RootLayout({
           disableTransitionOnChange
       >
       <SidebarProvider>
-      <AppSidebar />
+        <Suspense>
+        <AppSidebar />
       <main className="p-2 w-screen space-y-4">
         <div className="py-2 w-full flex justify-between items-center space-x-6 ">
           <SidebarTrigger />
@@ -47,6 +49,7 @@ export default function RootLayout({
         </div>
         {children}
       </main>
+        </Suspense>
     </SidebarProvider>
     </ThemeProvider>
       </body>

@@ -181,16 +181,16 @@ export function AppSidebar() {
       }
     };
 
-    const cityParam = params.city;
+    const cityParam = Array.isArray(params.city) ? params.city[0] : params.city;
     const currentUnit = searchParams.get('unit');
-    fetchWeather(cityParam || "Nairobi", currentUnit);
+    fetchWeather(cityParam ?? "Nairobi", currentUnit);
   }, [params.city, searchParams]);
 
   return (
     <Sidebar>
       <SidebarHeader />
       <SidebarContent>
-        <SidebarGroup label={<SidebarGroupLabel>Current Weather</SidebarGroupLabel>} />
+       
         {loading ? (
           <SidebarCard
             weather="Loading..."
