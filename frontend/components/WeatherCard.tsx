@@ -14,7 +14,7 @@ import type {WeatherData} from "@/lib/utils"
 
 export default function WeatherCard({ date, icon, temperature }: WeatherData) {
   return (
-    <Card className="max-w-xs md:max-w-md text-center">
+    <Card className="max-w-xs rounded-sm md:max-w-md text-center">
       <CardHeader className="flex items-center justify-center">
         <CardTitle className="text-lg">{date}</CardTitle>
         

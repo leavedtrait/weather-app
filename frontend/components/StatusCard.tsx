@@ -11,7 +11,7 @@ import type {StatusCardProps} from "@/lib/utils"
 
 export default function StatusCard({ title, icon, value }: StatusCardProps) {
   return (
-    <Card className="max-w-sm md:max-w-lg space-y-3 text-center">
+    <Card className="max-w-sm rounded-sm md:max-w-lg space-y-3 text-center">
       <CardHeader className="flex flex-col items-center justify-center">
         <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
