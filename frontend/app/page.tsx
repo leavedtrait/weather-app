@@ -1,11 +1,11 @@
 'use client'
 import WeatherCard from "@/components/WeatherCard";
 import StatusCard from "@/components/StatusCard";
-import { Droplets, Wind, Sun, Cloud } from "lucide-react";
-import { StatusCardProps, WeatherData } from "@/lib/utils";
+import { Droplets, Wind } from "lucide-react";
+import { StatusCardProps, WeatherData as WeatherCardData } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 
 interface LocalNames {
   zh?: string;
@@ -77,6 +77,10 @@ interface WeatherAPIResponse {
   forecast: ForecastItem[];
 }
 
+interface ProcessedWeatherData extends Omit<WeatherCardData, 'icon'> {
+  iconUrl: string;
+}
+
 export function WeatherStatusSection({ humidity, windSpeed }: { humidity: number; windSpeed: number }) {
   const status: StatusCardProps[] = [
     {
@@ -106,24 +110,29 @@ export function WeatherStatusSection({ humidity, windSpeed }: { humidity: number
 }
 
 export default function Home() {
-  const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
+  const [weatherData, setWeatherData] = useState<ProcessedWeatherData[]>([]);
   const [humidity, setHumidity] = useState<number>(0);
   const [windSpeed, setWindSpeed] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const unit = searchParams.get('unit');
+  const params = useParams();
 
   useEffect(() => {
     const fetchWeather = async () => {
+      setLoading(true);
+      setError(null);
+      const cityParam = params.city || "Nairobi"; // Default to Nairobi
+
       try {
-        const response = await fetch(`/api/weather/`);
+        const response = await fetch(`/api/weather/${cityParam}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data: WeatherAPIResponse = await response.json();
 
-        const processedWeatherData: WeatherData[] = [];
+        const processedWeatherData: ProcessedWeatherData[] = [];
         const today = new Date().toLocaleDateString();
         const nextThreeDays: string[] = [];
         let forecastIndex = 0;
@@ -143,25 +152,15 @@ export default function Home() {
               temperature = (temperature * 9) / 5 + 32;
             }
             const formattedTemperature = `${Math.round(temperature)}°${unit === 'imperial' ? 'F' : 'C'}`;
-
-            let icon = <Sun />;
             const iconCode = forecastItem.weather[0]?.icon;
-            if (iconCode?.includes('r')) {
-              icon = <Droplets />;
-            } else if (iconCode?.includes('d') || iconCode?.includes('n')) {
-              icon = <Sun />;
-            } else if (iconCode?.includes('w') || iconCode?.includes('m')) {
-              icon = <Wind />;
-            } else if (iconCode?.includes('c')) {
-              icon = <Cloud />;
-            }
 
-            processedWeatherData.push({ date, icon, temperature: formattedTemperature });
+            processedWeatherData.push({ date, iconUrl: iconCode, temperature: formattedTemperature });
           }
           forecastIndex++;
         }
 
         if (data.forecast.length > 0) {
+          // Assuming the first forecast item represents near-current conditions for humidity and wind
           setHumidity(data.forecast[0]?.main.humidity || 0);
           setWindSpeed(Math.round(data.forecast[0]?.wind.speed * 3.6) || 0);
         }
@@ -176,7 +175,7 @@ export default function Home() {
     };
 
     fetchWeather();
-  }, [unit]);
+  }, [unit, params.city]);
 
   if (loading) {
     return (
@@ -214,7 +213,7 @@ export default function Home() {
           <WeatherCard
             key={index}
             date={item.date}
-            icon={item.icon}
+            iconUrl={`https://openweathermap.org/img/wn/${item.iconUrl}@2x.png`}
             temperature={item.temperature}
           />
         ))}

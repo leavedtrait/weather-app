@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export type WeatherData = {
   date: string
-  icon: JSX.Element
+  iconUrl: string;
   temperature: string
 }
 

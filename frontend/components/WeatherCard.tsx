@@ -12,7 +12,7 @@ import type {WeatherData} from "@/lib/utils"
 
 
 
-export default function WeatherCard({ date, icon, temperature }: WeatherData) {
+export default function WeatherCard({ date, iconUrl, temperature }: WeatherData) {
   return (
     <Card className="max-w-xs rounded-sm md:max-w-md text-center">
       <CardHeader className="flex items-center justify-center">
@@ -20,7 +20,7 @@ export default function WeatherCard({ date, icon, temperature }: WeatherData) {
         
       </CardHeader>
       <CardContent className="flex items-center justify-center">
-        {icon}
+        <img src={iconUrl} alt="Weather Icon" width={50} height={50} />
       </CardContent>
       <CardFooter className="flex items-center justify-center">
         <CardDescription className="text-2xl font-bold">
